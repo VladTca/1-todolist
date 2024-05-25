@@ -9,6 +9,7 @@ function App() {
                 <div>
                     <input/>
                     <button>+</button>
+                    <button>-</button>
                 </div>
                 <ul>
                     <li><input type="checkbox" checked={true}/> <span>HTML&CSS</span></li>
