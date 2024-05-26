@@ -7,7 +7,46 @@ import './App.css';
 // -You have 2 arrays. You should create a new component TASKS, where you will render these arrays.
 // -Don't forget to assign types to our data.
 
+type TaskType = {
+    taskId: number
+    title: string
+    isDone: boolean
+}
 
+type DataType = {
+    title: string
+    tasks: TaskType[]
+    students: string[]
+}
+
+
+const Tasks = (props: { data: DataType }) => {
+    return (
+        <div>
+            <h1>{props.data.title}</h1>
+            <ul>
+                {props.data.tasks.map(el => {
+                    if (el.isDone) {
+                        return (
+                            <li>
+                                <span>{el.taskId}. </span>
+                                <span>{el.title} </span>
+                            </li>
+                        )
+                    }
+
+                })}
+            </ul>
+            <ol>
+                {props.data.students.map(el => {
+                    return (
+                        <li>{el}</li>
+                    )
+                })}
+            </ol>
+        </div>
+    )
+}
 
 function App() {
     const data1 = {
@@ -126,7 +165,8 @@ function App() {
 
     return (
         <div className="App">
-
+            <Tasks data={data1}/>
+            <Tasks data={data2}/>
         </div>
     );
 }
