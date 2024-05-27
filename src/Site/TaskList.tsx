@@ -1,13 +1,16 @@
 // @flow
 import * as React from 'react';
+import {TaskType} from "../App";
 
 type Props = {
     img: string
     title: string
     description: string
+    list: TaskType[]
+    deleteTask:(taskId: number) => void
 };
 
-export const TaskList = ({img, description, title}: Props) => {
+export const TaskList = ({img, description, title, list, deleteTask}: Props) => {
     return (
         <div>
             <div className='list'>
@@ -19,21 +22,15 @@ export const TaskList = ({img, description, title}: Props) => {
                 <input type='text'/>
                 <button>(っ°◡°)っ</button>
                 <ul className='item'>
-                    <li>
-                        <input type='checkbox'/>
-                        <span>Shoes</span>
-                        <button>x</button>
-                    </li>
-                    <li>
-                        <input type='checkbox'/>
-                        <span>Shoes</span>
-                        <button>x</button>
-                    </li>
-                    <li>
-                        <input type='checkbox'/>
-                        <span>Shoes</span>
-                        <button>x</button>
-                    </li>
+                    {list.map(el => {
+                        return (
+                            <li key={el.id}>
+                                <input type='checkbox' checked={el.isDone}/>
+                                <span>{el.task}</span>
+                                <button onClick={()=>deleteTask(el.id)}>x</button>
+                            </li>
+                        )
+                    })}
                 </ul>
                 <button>All</button>
                 <button>Need</button>
