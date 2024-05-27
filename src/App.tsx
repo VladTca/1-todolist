@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 
+export type FilterValuesType = "all" | "active" | "completed"
 
 // Hi Guys!
 // Let's reinforce our current session!
