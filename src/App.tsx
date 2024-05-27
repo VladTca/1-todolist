@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-// еуые
+
 // Hi Guys!
 // Let's reinforce our current session!
 // -You have 2 arrays. You should create a new component TASKS, where you will render these arrays.
