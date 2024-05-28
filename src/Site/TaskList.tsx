@@ -28,7 +28,7 @@ export const TaskList = ({img, description, title, list, setList, deleteTask}: P
                             <li key={el.id}>
                                 <input type='checkbox' checked={el.isDone}/>
                                 <span>{el.task}</span>
-                                <button onClick={()=>deleteTask(el.id, list, setList)}>x</button>
+                                <button onClick={() => deleteTask(el.id, list, setList)}>x</button>
                             </li>
                         )
                     })}
@@ -36,7 +36,21 @@ export const TaskList = ({img, description, title, list, setList, deleteTask}: P
                 <button>All</button>
                 <button>Need</button>
                 <button>Done</button>
-
+                <button onClick={() => {
+                    props.changeFilter("all")
+                }}>
+                    All
+                </button>
+                <button onClick={() => {
+                    props.changeFilter("need")
+                }}>
+                    Need
+                </button>
+                <button onClick={() => {
+                    props.changeFilter("done")
+                }}>
+                    Done
+                </button>
             </div>
 
         </div>
