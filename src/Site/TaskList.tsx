@@ -43,7 +43,7 @@ export const TaskList = ({img, description, title, list, setList, deleteTask}: P
                 <input type='text'/>
                 <button>(っ°◡°)っ</button>
                 <ul className='item'>
-                    {list.map(el => {
+                    {tasksForTodolist.map(el => {
                         return (
                             <li key={el.id}>
                                 <input type='checkbox' checked={el.isDone}/>
