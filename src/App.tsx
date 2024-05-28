@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import {Todolist} from './Todolist';
 
-export type FilterValuesType = "all" | "active" | "completed";
+export type FilterValuesType = "all" | "active" | "completed" | "f3";
 
 //Hi guys!
 //1. Let's create a 'DELETE ALL TASKS' button, and place it above the filter buttons
@@ -50,9 +50,17 @@ function App() {
     if (filter === "completed") {
         tasksForTodolist = tasks.filter(t => t.isDone === true);
     }
+    if (filter === "f3") {
+        tasksForTodolist = tasks.filter(t => t.id <= 3);
+    }
 
     function changeFilter(value: FilterValuesType) {
         setFilter(value);
+    }
+
+
+    function deleteAllTasks() {
+        setTasks([])
     }
 
     return (
@@ -60,7 +68,9 @@ function App() {
             <Todolist title="What to learn"
                       tasks={tasksForTodolist}
                       removeTask={removeTask}
-                      changeFilter={changeFilter}/>
+                      changeFilter={changeFilter}
+                      deleteAllTasks={deleteAllTasks}
+            />
         </div>
     );
 }
