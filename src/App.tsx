@@ -25,27 +25,41 @@ function App() {
         {id: 3, task: 'Sunglasses', isDone: true}
     ])
 
-    // const [petsTasks, setPetsTasks]=useState([
-    //     {id: 1, task: "Trim the cat's claws", isDone: false},
-    //     {id: 2, task: 'Groomer for the dog', isDone: false},
-    //     {id: 3, task: 'Clean the carrier', isDone: true},
-    //     {id: 3, task: 'Buy diapers', isDone: true}
-    // ])
+    const [petsTasks, setPetsTasks]=useState([
+        {id: 1, task: "Trim the cat's claws", isDone: false},
+        {id: 2, task: 'Groomer for the dog', isDone: false},
+        {id: 3, task: 'Clean the carrier', isDone: true},
+        {id: 3, task: 'Buy diapers', isDone: true}
+    ])
 
-    const deleteTask = (taskId: number) => {
-        const filteredTasks = shoppingList.filter(el => {
-                return el.id !== taskId
-            })
-        setShoppingList(filteredTasks)
-    }
+    const deleteTask = (taskId: number, tasks: TaskType[], setTasks: (tasks: TaskType[]) => void) => {
+        const filteredTasks = tasks.filter(el => el.id !== taskId);
+        setTasks(filteredTasks);
+        if (filteredTasks.length === 0) {
+            alert('Упс, тут ничего нет')
+        }
+    };
 
     return (
         <div>
-            {/* <Example/> */}
-            <MainTitle className={"title"} title={"Preparing for vacation"}/>
+            <MainTitle className={"title"} title={"Preparing for vacation"} />
             <div className='App'>
-                <TaskList list={shoppingList} img={'/shopping.png'} title={'Shopping list'} description={description} deleteTask={deleteTask}/>
-                {/*<TaskList list={petsTasks} img={'/dog.png'} title={'Pets'} description={description}/>*/}
+                <TaskList
+                    list={shoppingList}
+                    img={'/shopping.png'}
+                    title={'Shopping list'}
+                    description={description}
+                    setList={setShoppingList}
+                    deleteTask={deleteTask}
+                />
+                <TaskList
+                    list={petsTasks}
+                    img={'/dog.png'}
+                    title={'Pets'}
+                    description={description}
+                    setList={setPetsTasks}
+                    deleteTask={deleteTask}
+                />
             </div>
         </div>
     );

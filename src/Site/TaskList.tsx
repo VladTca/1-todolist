@@ -7,10 +7,11 @@ type Props = {
     title: string
     description: string
     list: TaskType[]
-    deleteTask:(taskId: number) => void
+    setList: (tasks: TaskType[]) => void
+    deleteTask:(taskId: number, list: TaskType[], setList: (tasks: TaskType[]) => void,) => void
 };
 
-export const TaskList = ({img, description, title, list, deleteTask}: Props) => {
+export const TaskList = ({img, description, title, list, setList, deleteTask}: Props) => {
     return (
         <div>
             <div className='list'>
@@ -27,7 +28,7 @@ export const TaskList = ({img, description, title, list, deleteTask}: Props) => 
                             <li key={el.id}>
                                 <input type='checkbox' checked={el.isDone}/>
                                 <span>{el.task}</span>
-                                <button onClick={()=>deleteTask(el.id)}>x</button>
+                                <button onClick={()=>deleteTask(el.id, list, setList)}>x</button>
                             </li>
                         )
                     })}
@@ -35,6 +36,7 @@ export const TaskList = ({img, description, title, list, deleteTask}: Props) => 
                 <button>All</button>
                 <button>Need</button>
                 <button>Done</button>
+
             </div>
 
         </div>
