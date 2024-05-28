@@ -1,6 +1,9 @@
 // @flow
 import * as React from 'react';
 import {TaskType} from "../App";
+import {useState} from "react";
+
+type FilterValuesType = "all" | "need" | "done";
 
 type Props = {
     img: string
@@ -8,10 +11,27 @@ type Props = {
     description: string
     list: TaskType[]
     setList: (tasks: TaskType[]) => void
-    deleteTask:(taskId: number, list: TaskType[], setList: (tasks: TaskType[]) => void,) => void
+    deleteTask: (taskId: number, list: TaskType[], setList: (tasks: TaskType[]) => void,) => void
 };
 
 export const TaskList = ({img, description, title, list, setList, deleteTask}: Props) => {
+    let [filter, setFilter] = useState<FilterValuesType>("all");
+
+    let tasksForTodolist = list;
+
+    if (filter === "need") {
+        tasksForTodolist = list.filter(t => t.isDone === false);
+    }
+    if (filter === "done") {
+        tasksForTodolist = list.filter(t => t.isDone === true);
+    }
+
+
+    function changeFilter(value: FilterValuesType) {
+        setFilter(value);
+    }
+
+
     return (
         <div>
             <div className='list'>
@@ -33,21 +53,19 @@ export const TaskList = ({img, description, title, list, setList, deleteTask}: P
                         )
                     })}
                 </ul>
-                <button>All</button>
-                <button>Need</button>
-                <button>Done</button>
+
                 <button onClick={() => {
-                    props.changeFilter("all")
+                   changeFilter("all")
                 }}>
                     All
                 </button>
                 <button onClick={() => {
-                    props.changeFilter("need")
+                    changeFilter("need")
                 }}>
                     Need
                 </button>
                 <button onClick={() => {
-                    props.changeFilter("done")
+                    changeFilter("done")
                 }}>
                     Done
                 </button>
