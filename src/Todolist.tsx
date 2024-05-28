@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FilterValuesType} from './App';
 
 type TaskType = {
@@ -11,11 +11,34 @@ type PropsType = {
     title: string
     tasks: Array<TaskType>
     removeTask: (taskId: number) => void
-    changeFilter: (value: FilterValuesType) => void
     deleteAllTasks: () => void
 }
 
+
 export function Todolist(props: PropsType) {
+
+
+    let [filter, setFilter] = useState<FilterValuesType>("all");
+
+    let tasksForTodolist = props.tasks;
+
+    if (filter === "active") {
+        tasksForTodolist = props.tasks.filter(t => t.isDone === false);
+    }
+    if (filter === "completed") {
+        tasksForTodolist = props.tasks.filter(t => t.isDone === true);
+    }
+    if (filter === "f3") {
+        tasksForTodolist = props.tasks.filter(t => t.id <= 3);
+    }
+
+    function changeFilter(value: FilterValuesType) {
+        setFilter(value);
+    }
+
+
+
+
     return <div>
         <h3>{props.title}</h3>
         <div>
@@ -24,7 +47,7 @@ export function Todolist(props: PropsType) {
         </div>
         <ul>
             {
-                props.tasks.map(t =>
+               tasksForTodolist.map(t =>
                     <li key={t.id}>
                         <input type="checkbox" checked={t.isDone}/>
                         <span>{t.title}</span>
@@ -42,22 +65,22 @@ export function Todolist(props: PropsType) {
         </div>
         <div>
             <button onClick={() => {
-                props.changeFilter("all")
+                changeFilter("all")
             }}>
                 All
             </button>
             <button onClick={() => {
-                props.changeFilter("active")
+                changeFilter("active")
             }}>
                 Active
             </button>
             <button onClick={() => {
-                props.changeFilter("completed")
+                changeFilter("completed")
             }}>
                 Completed
             </button>
             <button onClick={() => {
-                props.changeFilter("f3")
+               changeFilter("f3")
             }}>
                 First 3
             </button>
