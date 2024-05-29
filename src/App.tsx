@@ -29,7 +29,7 @@ function App() {
         {id: 1, task: "Trim the cat's claws", isDone: false},
         {id: 2, task: 'Groomer for the dog', isDone: false},
         {id: 3, task: 'Clean the carrier', isDone: true},
-        {id: 3, task: 'Buy diapers', isDone: true}
+        {id: 4, task: 'Buy diapers', isDone: true}
     ])
 
     const deleteTask = (taskId: number, tasks: TaskType[], setTasks: (tasks: TaskType[]) => void) => {
@@ -39,6 +39,21 @@ function App() {
             alert('Упс, тут ничего нет')
         }
     };
+
+    // const deleteTaskPets = (taskId: number) => {
+    //     const filteredTasks = petsTasks.filter(el => el.id !== taskId);
+    //     setPetsTasks(filteredTasks);
+    //     if (filteredTasks.length === 0) {
+    //         alert('Упс, тут ничего нет')
+    //     }
+    // };
+    // const deleteTaskShopping = (taskId: number) => {
+    //     const filteredTasks = shoppingList.filter(el => el.id !== taskId);
+    //     setShoppingList(filteredTasks);
+    //     if (filteredTasks.length === 0) {
+    //         alert('Упс, тут ничего нет')
+    //     }
+    // };
 
     return (
         <div>
