@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
+import axios from "axios";
 
 // Hi guys! Let`s reinforce our session:
 
@@ -30,8 +31,7 @@ import './App.css';
 //Good luck!
 
 
-
-type PropsType=
+type PropsType =
     {
         userId: number,
         id: number,
@@ -42,38 +42,56 @@ type PropsType=
 function App() {
     const [todos, setTodos] = useState<Array<PropsType>>([])
 
-    useEffect(()=>{
-        fetch('https://jsonplaceholder.typicode.com/todos')
-            .then(response => response.json())
-            .then(json => setTodos(json))
-    },[])
-
-    const onClickHandler = () => {
-        setTodos([])
-    }
-
-    return (
-        <div className="App">
-            <button onClick={onClickHandler}>CLEAN POSTS</button>
-            <ul>
-                {todos.map(el => {
-                    return (
-                        <li>
-                            <span>{el.id} - </span>
-                            <span>{el.title}</span>
-                            <span>{el.completed}</span>
-                        </li>
-                    )
-                })}
-
-            </ul>
 
 
-        </div>
-    );
+    // axios.get('https://jsonplaceholder.typicode.com/todos')
+    //     .then((res) => {
+    //         setTodos(res.data)
+    //     })
+
+
+    // useEffect(()=>{
+    //     fetch('https://jsonplaceholder.typicode.com/todos')
+    //         .then(response => response.json())
+    //         .then(json => setTodos(json))
+    // },[])
+const onClickReDisplay = () => {
+    axios.get('https://jsonplaceholder.typicode.com/todos')
+        .then((res) => {
+            setTodos(res.data)
+        })
 }
 
-export default App;
+    const mapTodos = todos.map(el=> {
+
+            return (
+                <li key={el.id}>
+                    <span>{el.id} - </span>
+                    <span>{el.title}</span>
+                    <span>{el.completed}</span>
+                </li>
+            )
+        })
+
+
+        const onClickHandler = () => {
+            setTodos([])
+        }
+
+        return (
+            <div className="App">
+                <button onClick={onClickHandler}>CLEAN POSTS</button>
+                <button onClick={onClickReDisplay}>ReDisplay</button>
+                <ul>
+                    {mapTodos}
+                </ul>
+
+
+            </div>
+        );
+    }
+
+    export default App;
 
 
 
