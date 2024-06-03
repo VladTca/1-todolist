@@ -1,6 +1,10 @@
 // @flow
 import * as React from 'react';
-import {TaskType} from "../App";
+type TaskType = {
+    id: number,
+    task: string,
+    isDone: boolean
+}
 
 type Props = {
     img: string
