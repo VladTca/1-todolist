@@ -1,36 +1,54 @@
 // @flow
 import * as React from 'react';
-import {TaskType} from "../App";
-import {useState} from "react";
+import {FilterValuesType, TaskType} from "../App";
+import {ChangeEvent, useState} from "react";
 
-type FilterValuesType = "all" | "need" | "done";
-
+// const deleteTask = (taskId: number, tasks: TaskType[], setTasks: (tasks: TaskType[]) => void) => {
+//     const filteredTasks = tasks.filter(el => el.id !== taskId);
+//     setTasks(filteredTasks);
+//     if (filteredTasks.length === 0) {
+//         alert('Упс, тут ничего нет')
+//     }
+// };
 type Props = {
     img: string
     title: string
     description: string
     list: TaskType[]
-    setList: (tasks: TaskType[]) => void
-    deleteTask: (taskId: number, list: TaskType[], setList: (tasks: TaskType[]) => void,) => void
+    deleteTask: (taskId: string) => void
+    changeFilter: (filter: FilterValuesType) => void
+    addTask: (task: string) => void
+    changeTaskStatus: (taskId: string, taskStatus: boolean) => void
 };
 
-export const TaskList = ({img, description, title, list, setList, deleteTask}: Props) => {
-    let [filter, setFilter] = useState<FilterValuesType>("all");
+export const TaskList = ({
+                             img,
+                             description,
+                             title,
+                             list,
+                             deleteTask,
+                             changeFilter,
+                             addTask,
+                             changeTaskStatus
+                         }: Props) => {
 
-    let tasksForTodolist = list;
+// Данные---------------------------------------------------------------------------------------
 
-    if (filter === "need") {
-        tasksForTodolist = list.filter(t => t.isDone === false);
+    const [taskTitle, setTaskTitle] = useState('') //Для контролируемого инпута при добавлении тасок
+
+// Добавление таски---------------------------------------------------------------------------------------
+
+    const addTaskHandler = () => {
+        if (taskTitle.trim() !== '') {
+            addTask(taskTitle)
+            setTaskTitle('')
+        }
     }
-    if (filter === "done") {
-        tasksForTodolist = list.filter(t => t.isDone === true);
-    }
 
-
-    function changeFilter(value: FilterValuesType) {
-        setFilter(value);
-    }
-
+    // const changeTaskStatusHandler = (taskId:string, event: ChangeEvent<HTMLInputElement>)=>{
+    //     changeTaskStatus(taskId, event.currentTarget.checked)
+    //     console.log(event.currentTarget.checked)
+    // }
 
     return (
         <div>
@@ -40,35 +58,46 @@ export const TaskList = ({img, description, title, list, setList, deleteTask}: P
                     <h2>{title}</h2>
                 </div>
                 <p>{description}</p>
-                <input type='text'/>
-                <button>(っ°◡°)っ</button>
-                <ul className='item'>
-                    {tasksForTodolist.map(el => {
-                        return (
-                            <li key={el.id}>
-                                <input type='checkbox' checked={el.isDone}/>
-                                <span>{el.task}</span>
-                                <button onClick={() => deleteTask(el.id, list, setList)}>x</button>
-                            </li>
-                        )
-                    })}
-                </ul>
+                <input type='text'
+                       value={taskTitle}
+                       onChange={event => setTaskTitle(event.currentTarget.value)}
+                       onKeyUp={event => {
+                           if (event.key === 'Enter') {
+                               addTaskHandler()
+                           }
+                       }}
+                />
+                <button onClick={() => {
+                    addTaskHandler()
+                }
+                }>(っ°◡°)っ
+                </button>
+                {list.length === 0 ? (
+                    <p>Упс...</p>
+                ) : (
+                    <ul className='item'>
+                        {list.map(el => {
 
-                <button onClick={() => {
-                   changeFilter("all")
-                }}>
-                    All
-                </button>
-                <button onClick={() => {
-                    changeFilter("need")
-                }}>
-                    Need
-                </button>
-                <button onClick={() => {
-                    changeFilter("done")
-                }}>
-                    Done
-                </button>
+// Изменение статуса таски---------------------------------------------------------------------------------------
+
+                            const changeTaskStatusHandler = (event: ChangeEvent<HTMLInputElement>) => {
+                                const newStatusValue = event.currentTarget.checked
+                                changeTaskStatus(el.id, newStatusValue)
+                            }
+
+                            return (
+                                <li key={el.id}>
+                                    <input type='checkbox' checked={el.isDone} onChange={changeTaskStatusHandler}/>
+                                    <span>{el.task}</span>
+                                    <button onClick={() => deleteTask(el.id)}>x</button>
+                                </li>
+                            )
+                        })}
+                    </ul>)
+                }
+                <button onClick={() => changeFilter('all')}>All</button>
+                <button onClick={() => changeFilter('need')}>Need</button>
+                <button onClick={() => changeFilter('done')}>Done</button>
             </div>
 
         </div>
