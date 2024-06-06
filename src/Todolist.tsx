@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from 'react';
 import {FilterValuesType, TasksType} from './App';
+import {Button} from "./Button";
 
 
 
@@ -14,6 +15,8 @@ type PropsType = {
     changeTaskStatus: (id: string, isDone: boolean, todolistId: number) => void
     removeTodolist: (id: number) => void
     filter: FilterValuesType
+    removeAllTodolists: () => void
+    removeAllTasksInOneTodo: (todolistId: number) => void
   }
 
 export function Todolist(props: PropsType) {
@@ -38,6 +41,7 @@ export function Todolist(props: PropsType) {
 
 
     return <div>
+        {/*<Button title={'Remove_Todolist'} onClickhandler={props.removeAllTodolists} />*/}
         <h3> {props.title}
             <button onClick={() => {
                 'removeTodolist'
@@ -83,6 +87,7 @@ export function Todolist(props: PropsType) {
                     onClick={()=>{}}>Completed
             </button>
         </div>
+        <Button title={'RemoveTasks'} onClickhandler={() => props.removeAllTasksInOneTodo(props.id)} />
         <p></p>
         {
             props.students.map((el) => {
