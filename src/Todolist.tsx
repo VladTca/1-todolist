@@ -31,6 +31,12 @@ export function Todolist(props: PropsType) {
     }
 
 
+
+    const changeFilterHandler = (value: FilterValuesType) => {
+        props.changeFilter(value, props.id);
+    }
+
+
     return <div>
         <h3> {props.title}
             <button onClick={() => {
