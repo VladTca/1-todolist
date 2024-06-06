@@ -3,7 +3,6 @@ import {FilterValuesType, TasksType} from './App';
 import {Button} from "./Button";
 
 
-
 type PropsType = {
     id: number
     title: string
@@ -17,7 +16,7 @@ type PropsType = {
     filter: FilterValuesType
     removeAllTodolists: () => void
     removeAllTasksInOneTodo: (todolistId: number) => void
-  }
+}
 
 export function Todolist(props: PropsType) {
     let [title, setTitle] = useState("")
@@ -33,6 +32,17 @@ export function Todolist(props: PropsType) {
         }
     }
 
+    const removeTodolistHandler = () => {
+        props.removeTodolist(props.id)
+    }
+
+    const addTaskHandler = () => {
+        props.addTask(title, props.id)
+    }
+
+    const removeTaskHandler = (taskId: string) => {
+        props.removeTask(taskId, props.id)
+    }
 
 
     const changeFilterHandler = (value: FilterValuesType) => {
@@ -41,25 +51,23 @@ export function Todolist(props: PropsType) {
 
 
     return <div>
-        {/*<Button title={'Remove_Todolist'} onClickhandler={props.removeAllTodolists} />*/}
+
         <h3> {props.title}
-            <button onClick={() => {
-                'removeTodolist'
-            }}>x
-            </button>
+            <Button title={'X'} onClickhandler={removeTodolistHandler}/>
+
 
         </h3>
         <div>
             <input value={title}
                    onChange={onChangeHandler}
-                   onKeyPress={onKeyPressHandler}
+                   onKeyUp={onKeyPressHandler}
                    className={error ? "error" : ""}
             />
-            <button onClick={() => {'addTask'}}>+</button>
+            <Button title={'+'} onClickhandler={addTaskHandler}/>
             {error && <div className="error-message">{error}</div>}
 
         </div>
-      
+
         <ul>
             {
                 props.tasks.map(t => {
@@ -67,27 +75,32 @@ export function Todolist(props: PropsType) {
                         let newIsDoneValue = e.currentTarget.checked;
                         props.changeTaskStatus(t.taskId, newIsDoneValue, props.id);
                     }
+//  removeTask: (taskId: string, todolistId: number) => void
 
                     return <li key={t.taskId} className={t.isDone ? "is-done" : ""}>
                         <input type="checkbox" onChange={onChangeHandler} checked={t.isDone}/>
                         <span>{t.title}</span>
-                        <button onClick={() => {'removeTask'}}>x</button>
+                        <Button title={'X'} onClickhandler={() => removeTaskHandler(t.taskId)}/>
+                        {/*<button onClick={() => {'removeTask'}}>x</button>*/}
                     </li>
                 })
             }
         </ul>
         <div>
             <button className={props.filter === 'all' ? "active-filter" : ""}
-                    onClick={()=>{}}>All
+                    onClick={() => {changeFilterHandler("all")
+                    }}>All
             </button>
             <button className={props.filter === 'active' ? "active-filter" : ""}
-                    onClick={()=>{}}>Active
+                    onClick={() => {changeFilterHandler('active')
+                    }}>Active
             </button>
             <button className={props.filter === 'completed' ? "active-filter" : ""}
-                    onClick={()=>{}}>Completed
+                    onClick={() => {changeFilterHandler('completed')
+                    }}>Completed
             </button>
         </div>
-        <Button title={'RemoveTasks'} onClickhandler={() => props.removeAllTasksInOneTodo(props.id)} />
+        <Button title={'RemoveTasks'} onClickhandler={() => props.removeAllTasksInOneTodo(props.id)}/>
         <p></p>
         {
             props.students.map((el) => {
