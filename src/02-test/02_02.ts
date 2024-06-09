@@ -13,6 +13,7 @@ export type governmentBuildingsType = {
 }
 
 export type HouseType = {
+    id?: number
     buildedAT: number
     repaired: boolean
     address: AddressType
