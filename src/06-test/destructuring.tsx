@@ -2,7 +2,8 @@ import React, {useState} from "react";
 
 
 type LessonType = {
-    title: string
+    title: string,
+    name?: string
 }
 export type ManType = {
     name: string

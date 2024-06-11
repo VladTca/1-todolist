@@ -11,7 +11,7 @@ beforeEach(() => {
         lessons: [
             {title: "1"},
             {title: "2"},
-            {title: "3"}
+            {title: "3", name: "react"}
         ],
         address: {
             street: {
@@ -49,4 +49,7 @@ test('', () => {
 
     expect(restLessons.length).toBe(2)
     expect(restLessons[1].title).toBe("3")
+    expect(restLessons[1].name).toBe("react")
+
+    expect(restLessons[1]).toStrictEqual( {title: "3", name: "react"})
 })
