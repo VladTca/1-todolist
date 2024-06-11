@@ -222,3 +222,50 @@
 // };
 //
 // console.log(getSubStr(str, startIndex)); // Выведет: "world!"
+
+
+// const getLastElements=(a,b)=>{
+//     return a.slice((a.length-b))
+// }
+//
+// console.log(getLastElements([1, 2, 3, 4, 5], 3)); // Выведет: [3, 4, 5]
+
+// const extractPath =(a,b)=>{
+// return a.slice(b+1)
+//
+// }
+//
+// console.log(extractPath('https://example.com/blog/article', 18)); // Выведет: "/blog/article"
+//
+// let numbers = [1, 2, 3, 4, 5];
+// const removeElement=(a,b)=>{
+//      a.splice(b,1)
+//     return a
+// }
+//
+// console.log(removeElement(numbers, 2)); // Выведет: [1, 2, 4, 5]
+
+
+
+// let numbers = [1, 2, 4, 5];
+// const insertElement=(a,b,c)=>{
+//     a.splice(b,0,c)
+//     return a
+// }
+//
+// console.log(insertElement(numbers, 2, 3)); // Выведет: [1, 2, 3, 4, 5]
+
+//
+//
+// let numbers = [1, 2, 3, 4, 5];
+// const sumArray =(a)=>{
+//    return a.reduce((acc,i) =>acc+i,0)
+// }
+//
+// console.log(sumArray(numbers)); // Выведет: 15
+//
+// const sumStringLengths =(a)=> {
+//     return a.reduce((acc, i) => acc + i.length,0)
+// }
+// console.log(sumStringLengths(['apple', 'banana', 'cherry'])); // Выведет: 17
+
