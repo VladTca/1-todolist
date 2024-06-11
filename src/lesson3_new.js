@@ -210,3 +210,15 @@
 // });
 
 // console.log(minNum); //0
+
+
+
+// -------------------------------------------------------------------------------
+// let str = 'Hello, world!';
+// let startIndex = 7;
+//
+// const getSubStr = (str, startIndex) => {
+//     return str.substring(startIndex);
+// };
+//
+// console.log(getSubStr(str, startIndex)); // Выведет: "world!"
