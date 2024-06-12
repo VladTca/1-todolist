@@ -269,3 +269,75 @@
 // }
 // console.log(sumStringLengths(['apple', 'banana', 'cherry'])); // Выведет: 17
 
+
+// const sumNestedArrays =(a)=> {
+//     return a.reduce((acc, i) => acc + i.reduce((acc2,i2)=>acc2+i2,0),0)
+// }
+// console.log(
+//     sumNestedArrays([
+//         [1, 2],
+//         [3, 4, 5],
+//         [6, 7, 8, 9],
+//     ])
+// ); // Выведет: 45
+
+
+
+// ````const numbers = [1, 2, 3, 3, 4, 5, 5, 6];````
+
+
+// const removeDuplicates =(a)=> {
+//     return a.reduce((acc, i) => {
+//         if (!acc.includes(i)) acc.push(i)
+//         return acc
+//     }, [])
+// }
+// console.log(removeDuplicates(numbers)); // Выведет: [1, 2, 3, 4, 5, 6]
+
+
+
+// const array = [1, 2, 3, 2, 4, 5, 4, 5];
+//
+// const findDuplicates =(a)=> {
+//     return a.reduce((acc, cur,i) => {
+//
+//         if (a.slice(i+1).includes(cur)) acc.push(cur)
+//         return acc
+//     }, [])
+// }
+//
+// const duplicatesArray = findDuplicates(array);
+// console.log(duplicatesArray); // Output: [2, 4, 5]
+
+//
+const words = ['apple', 'banana', 'apple', 'cherry', 'banana', 'apple'];
+
+const wordCount =(a)=>{
+    return a.reduce((acc,cur)=>{
+
+        acc[cur]=(acc[cur] || 0) +1
+        return acc
+
+    },{})
+}
+
+console.log(wordCount(words)); // Output: { apple: 3, banana: 2, cherry: 1 }
+
+
+//
+// const people = [
+//     { name: 'Alice', age: 25 },
+//     { name: 'Bob', age: 30 },
+//     { name: 'Charlie', age: 22 },
+// ];
+//
+// const getPropertyValues=(a,b)=>{
+//     return a.reduce((acc,cur)=>{
+//        acc.push(cur[b])
+//         return acc
+//     }, [])
+// }
+//
+//
+// const names = getPropertyValues(people, 'name');
+// console.log(names); // Output: ['Alice', 'Bob', 'Charlie']
