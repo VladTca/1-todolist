@@ -1,78 +1,68 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
+import {Country} from "./Country";
+import {v1} from "uuid";
 
-import {SuperButton} from "./components/SuperButton";
-import s from './components/SuperButton.module.css'
-import {SuperCrosses} from "./components/SuperCrosses";
-import {Modal} from "./components/modal/Modal";
-import r from './components/modal/Modal.module.css'
+export type BanknotsType = 'USD' | 'RUB' | 'All'
+export type MoneyType = {
+    banknote: BanknotsType
+    nominal: number
+    id:string
+}
 
-const croses = [
-    {id: 1, model: "ADIDAS", size: 'XXX'},
-    {id: 2, model: "ABIBAS", size: 'YYY'},
-    {id: 3, model: "PUMA", size: 'ZZZ'}
+let defaultMoney: MoneyType[] = [
+    {banknote: 'USD', nominal: 100, id: v1()},
+    {banknote: 'USD', nominal: 100, id: v1()},
+    {banknote: 'RUB', nominal: 100, id: v1()},
+    {banknote: 'USD', nominal: 100, id: v1()},
+    {banknote: 'USD', nominal: 100, id: v1()},
+    {banknote: 'RUB', nominal: 100, id: v1()},
+    {banknote: 'USD', nominal: 100, id: v1()},
+    {banknote: 'RUB', nominal: 100, id: v1()},
 ]
 
+
+export const moneyFilter = (money: MoneyType[], filter: BanknotsType): MoneyType[] => {
+    //если пришел filter со значением 'All', то возвращаем все банкноты
+    //return money.filter... ну да, придется фильтровать
+    if(filter === 'All') return money
+
+    return money.filter((el: MoneyType) => el.banknote === filter)
+}
+
+
 function App() {
+    // убираем заглушки в типизации и вставляем в качестве инициализационного значения defaultMoney
+    const [money, setMoney] = useState<MoneyType[]>((defaultMoney))
+    const [filterValue, setFilterValue] = useState<BanknotsType>('All')   // по умолчанию указываем все банкноты
+
+    // а вот сейчас притормаживаем. И вдумчиво: константа filteredMoney получает результат функции moneyFilter
+    // в функцию передаем деньги и фильтр, по которому ихбудем выдавать(ретёрнуть)
+    const filteredMoney = moneyFilter(money, filterValue)
+
+    const addMoney = (banknote: BanknotsType) => {
+        // Добавление денег
+        setMoney([...money, {banknote, nominal: 100, id: v1()}])
+    }
+
+    const removeMoney = (banknote: BanknotsType) => {
+        // Снятие денег сделаем в последнюю очередь, после настройки фильтров и отрисовки денег
+        const index = money.findIndex(el => el.banknote === banknote)
+         if (index !== -1) {
+             setMoney(money.filter((el, i) => i !== index));
+         }
+    }
+
     return (
-        <div>
-            {/*/!*<SuperButton onClick={() => {}} className={s.redForSuperButton}>RedButton</SuperButton>*!/*/}
-            {/*/!*<SuperButton onClick={() => {}} className={s.blueForSuperButton}>BlueButton</SuperButton>*!/*/}
-
-            {/*<SuperButton onClick={() => {*/}
-            {/*}} color={'red'}>RED BUTTON</SuperButton>*/}
-            {/*<SuperButton onClick={() => {*/}
-            {/*}} color={'secondary'}>SECONDARY BUTTON</SuperButton>*/}
-            {/*<SuperButton onClick={() => {*/}
-            {/*}}>DEFAULT BUTTON</SuperButton>*/}
-            {/*<SuperButton onClick={() => {*/}
-            {/*}} disabled>DISABLED BUTTON</SuperButton>*/}
-
-            {/*<SuperCrosses croses={croses}>*/}
-            {/*    <SuperButton onClick={() => {*/}
-            {/*    }} color={'red'}>RED BUTTON</SuperButton>*/}
-            {/*    <SuperButton onClick={() => {*/}
-            {/*    }} color={'secondary'}>SECONDARY BUTTON</SuperButton>*/}
-            {/*    <SuperButton onClick={() => {*/}
-            {/*    }}>DEFAULT BUTTON</SuperButton>*/}
-            {/*    <SuperButton onClick={() => {*/}
-            {/*    }} disabled>DISABLED BUTTON</SuperButton>*/}
-
-
-            {/*</SuperCrosses>*/}
-            {/*<SuperCrosses croses={croses}>*/}
-            {/*    <div>*/}
-            {/*        {'TEXT'.repeat(6)}*/}
-            {/*    </div>*/}
-
-            {/*</SuperCrosses>*/}
-            {/*<SuperCrosses croses={croses}/>*/}
-
-            {/*<Modal >*/}
-            {/*    <div className={r.modal}>*/}
-            {/*        <div className={r.modalContent}>*/}
-            {/*            <input type="email" placeholder={'email'}/>*/}
-            {/*            <input type="password" placeholder={'pass'}/>*/}
-            {/*            <button>send</button>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</Modal>*/}
-            <Modal>
-                <div className={r.modal}>
-                    <div className={r.modalContent}>
-                        <input type="email" placeholder={'email'}/>
-                        <input type="password" placeholder={'pass'}/>
-                        <input type="password" placeholder={'pass'}/>
-                        <span><input type="checkbox" />I agree</span>
-                        <button>send</button>
-                    </div>
-                </div>
-            </Modal>
-
-
+        <div className="App">
+            <Country
+                data={filteredMoney}   //отрисовать будем деньги после фильтрации
+                setFilterValue={setFilterValue}  //useState передаем? Так можно было?!
+                addMoney={addMoney}
+                removeMoney={removeMoney}
+            />
         </div>
     );
 }
-
 
 export default App;
