@@ -38,11 +38,11 @@ function App() {
     }
 
     type todolistsTaskTypes = {
-        todolistId: TaskTypes[];
+        [key: string]: Array<TaskTypes>
     }
 
 
-    let [tasks, setTasks] = useState({
+    let [tasks, setTasks] = useState<todolistsTaskTypes>({
         [todolistID1]: [
             {id: v1(), title: "HTML&CSS", isDone: true},
             {id: v1(), title: "JS", isDone: true},
