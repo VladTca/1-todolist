@@ -21,12 +21,12 @@ function App() {
 
 
     type todolistsType = {
-        id: string
-        title: string
-        filter: FilterValuesType
+        id: string;
+        title: string;
+        filter: FilterValuesType;
     }
 
-    let [todolists, setTodolists] = useState<Array<todolistsType>>([
+    let [todolists, setTodolists] = useState<todolistsType[]>([
         {id: todolistID1, title: 'What to learn', filter: 'all'},
         {id: todolistID2, title: 'What to buy', filter: 'all'},
     ])
@@ -79,17 +79,21 @@ function App() {
     }
 
     function changeStatus(taskId: string, isDone: boolean, todolistId: string) {
-        let task = tasks[todolistId].find(t => t.id === taskId);
-        if (task) {
-            task.isDone = isDone;
-        }
-        let newTask = {...tasks[todolistId], task}
-        setTasks({...tasks, [todolistId]: newTask});
+        let task = tasks[todolistId].map(t => t.id === taskId ? {
+            ...t,isDone} : t);
+
+        setTasks({...tasks, [todolistId]: task});
     }
 
     function changeFilter(value: FilterValuesType, todolistId: string) {
-        let changeToDo = todolists.map((el) => el.id === todolistId ? {...el, filter: value} : el)
-        setTodolists(changeToDo)
+        // let changeToDo = todolists.map((el) => el.id === todolistId ? {...el, filter: value} : el)
+        // setTodolists(changeToDo)
+let todo =todolists.find(tl=>tl.id===todolistId);
+if (todo) {
+    todo.filter=value;
+    setTodolists([...todolists])
+}
+
 
     }
 
@@ -113,16 +117,16 @@ function App() {
 
                 return (
                     <Todolist
-                        key={todolists.id}
-                        id={todolists.id}
-                        title={todolists.title}
-                        todolistId={todolists.id}
+                        key={el.id}
+                        id={el.id}
+                        title={el.title}
+                        todolistId={el.id}
                         tasks={tasksForTodolist}
                         removeTask={removeTask}
                         changeFilter={changeFilter}
                         addTask={addTask}
                         changeTaskStatus={changeStatus}
-                        filter={todolists.filter}
+                        filter={el.filter}
                     />);
             })}
         </div>
