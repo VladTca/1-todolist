@@ -1,24 +1,41 @@
-
 type UserType = {
     name: string
     age: number
 }
 
-function increseAge(user: UserType) {
-    user.age = user.age + 1
+function increseAge(u: UserType) {
+    u.age = u.age + 1
 }
 
 
-
 test('big test', () => {
-   var user = {
-    name: 'Dimych',
-    age: 32
-  }
+    var user = {
+        name: 'Dimych',
+        age: 32
+    }
 })
 
+test('ARRAY test', () => {
+    var users = [{
+        name: 'Dimych',
+        age: 32
+    },
+        {
+            name: 'Natasha',
+            age: 31
+        },
+        {
+            name: 'Valera',
+            age: 32
+        }
 
+    ]
+})
 
-users['1'].name='Ekaterina'
+increseAge(user);
+expect(user.age).toBe(33)
 
-expect(users['1']).toEqual({id:1, name:'Ekaterina'})
+const superman = user
+superman.age = 1000
+expect(superman.age).toBe(1000)
+
