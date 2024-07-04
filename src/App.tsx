@@ -58,15 +58,13 @@ function App() {
             {/*    </div>*/}
             {/*</Modal>*/}
             <Modal>
-                <div className={r.modal}>
-                    <div className={r.modalContent}>
+
                         <input type="email" placeholder={'email'}/>
                         <input type="password" placeholder={'pass'}/>
                         <input type="password" placeholder={'pass'}/>
                         <span><input type="checkbox" />I agree</span>
                         <button>send</button>
-                    </div>
-                </div>
+
             </Modal>
 
 
