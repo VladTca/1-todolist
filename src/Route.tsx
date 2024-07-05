@@ -23,7 +23,8 @@ export const Route = ({
                           removeFTRoute
                       }: RouteProps) => {
     const handleRemoveFTRoute = () => {
-        alert('Почини меня, чтобы я могла удалять рейс. Сделай это через универсальную кнопку.')
+        // alert('Почини меня, чтобы я могла удалять рейс. Сделай это через универсальную кнопку.')
+        removeFTRoute(flightTableID, route.id)
     };
 
     const handleUpdateRouteFrom = () => {
@@ -35,7 +36,8 @@ export const Route = ({
     }
 
     const handleToggleFTIsBooked = () => {
-        alert('Во мне куча ошибок!')
+        // alert('Во мне куча ошибок!')
+        toggleFTIsBooked(flightTableID, route.id)
     }
 
     return (
@@ -44,7 +46,8 @@ export const Route = ({
                 <tbody>
                 <tr className={styles.ftRow}>
                     <td className={styles.ftCell}>
-                        <button onClick={handleRemoveFTRoute}>X</button>
+                        {/*<button onClick={handleRemoveFTRoute}>X</button>*/}
+                        <Button title={'x'} onClick={handleRemoveFTRoute}/>
                     </td>
                     <td className={`${styles.ftCell} ${styles.pointerCursor}`}>
                         <UpdateItem oldTitle={route.from} callBack={() => 'handleUpdateRouteFrom'}/>
