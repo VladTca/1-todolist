@@ -65,12 +65,13 @@ function App() {
         ));
     };
 
-    const toggleFTIsBooked = (flightTableID: string, routeID: string) => {
+    const toggleFTIsBooked = (flightTableID: string, routeID: string,isBooked: boolean) => {
         setFlightTables(flightTables.map(ft =>
             ft.flightTableID === flightTableID ? {
                     ...ft,
                     routes: ft.routes.map(route =>
-                        route.id === routeID ? {...route, isBooked: !route.isBooked} : route
+                        // route.id === routeID ? {...route, isBooked: !route.isBooked} : route
+                        route.id === routeID ? {...route, isBooked} : route
                     )
                 }
                 : ft

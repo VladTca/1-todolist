@@ -6,7 +6,7 @@ import {RouteType} from "./FlightTable";
 
 type RouteProps = {
     route: RouteType
-    toggleFTIsBooked: (flightTableID: string, routeID: string) => void;
+    toggleFTIsBooked: (flightTableID: string, routeID: string, isBooked: boolean) => void;
     flightTableID: string;
     updateFTRoutesFrom: (flightID: string, routeID: string, newFrom: string) => void;
     updateFTRoutesTo: (flightID: string, routeID: string, newTo: string) => void;
@@ -27,17 +27,17 @@ export const Route = ({
         removeFTRoute(flightTableID, route.id)
     };
 
-    const handleUpdateRouteFrom = () => {
-        // updateFTRoutesFrom()
+    const handleUpdateRouteFrom = (newTitle: string) => {
+        updateFTRoutesFrom(flightTableID, route.id, newTitle);
     };
 
-    const handleUpdateRouteTo = () => {
-        //updateFTRoutesTo();
+    const handleUpdateRouteTo = (newTitle: string) => {
+        updateFTRoutesTo(flightTableID, route.id, newTitle);
     }
 
     const handleToggleFTIsBooked = () => {
         // alert('Во мне куча ошибок!')
-        toggleFTIsBooked(flightTableID, route.id)
+        toggleFTIsBooked(flightTableID, route.id, !route.isBooked)
     }
 
     return (
@@ -50,13 +50,13 @@ export const Route = ({
                         <Button title={'x'} onClick={handleRemoveFTRoute}/>
                     </td>
                     <td className={`${styles.ftCell} ${styles.pointerCursor}`}>
-                        <UpdateItem oldTitle={route.from} callBack={() => 'handleUpdateRouteFrom'}/>
+                        <UpdateItem oldTitle={route.from} callBack={handleUpdateRouteFrom}/>
                     </td>
                     <td className={`${styles.ftCell} ${styles.pointerCursor}`}>
                         ➔
                     </td>
                     <td className={`${styles.ftCell} ${styles.pointerCursor}`}>
-                        <UpdateItem oldTitle={route.to} callBack={() => 'handleUpdateRouteTo'}/>
+                        <UpdateItem oldTitle={route.to} callBack={handleUpdateRouteTo}/>
                     </td>
                     <td className={styles.checkboxContainer}>
                         <label>
