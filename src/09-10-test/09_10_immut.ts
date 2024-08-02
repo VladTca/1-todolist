@@ -14,6 +14,18 @@ export type UserWithLaptopType = UserType & {
     laptop: LaptopType
 }
 
+export function upgradeLaptop(u: UserWithLaptopType, laptop: string) {
+    const copy = {
+        ...u,
+        laptop: {
+            ...u.laptop,
+            title: laptop
+        }
+    }
+    return copy
+}
+
+
 export function moveUser(u: UserWithLaptopType, city: string) {
     const copy = {
         ...u,
