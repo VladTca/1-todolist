@@ -111,3 +111,9 @@ test('sort array test', () => {
     letters.sort();
     expect(letters).toEqual(['a', 'b', 'c', 'd', 'e', 'f']);
 })
+
+function passportist(letter: any) {
+    const copy = [...letter] //copy letter
+    copy.sort()
+    return copy
+}
