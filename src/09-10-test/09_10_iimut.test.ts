@@ -2,7 +2,7 @@ import {
     addBook,
     makeHairstyle,
     moveUser,
-    moveUserToOtherHouse, removeBook, updateBooks, updateCompanyTitle,
+    moveUserToOtherHouse, removeBook, updateBooks, updateCompanyTitle, updateCompanyTitle2,
     upgradeLaptop,
     UserType,
     UserWithBooksType, UserWithCompaniesType,
@@ -20,8 +20,7 @@ test('reference type test', () => {
     };
 
 
-
-    const awesomeUser = makeHairstyle(user,2);
+    const awesomeUser = makeHairstyle(user, 2);
 
 
     expect(awesomeUser.hair).toBe(16);
@@ -41,9 +40,9 @@ test('change adress', () => {
         }
     }
 
-     const movedUser = moveUser(user,'Kiev');
+    const movedUser = moveUser(user, 'Kiev');
 
-expect(user).not.toBe(movedUser)
+    expect(user).not.toBe(movedUser)
     expect(movedUser.address.title).toBe('Kiev');
     expect(user.address).not.toBe(movedUser.address)
     expect(user.laptop).toBe(movedUser.laptop);
@@ -61,7 +60,7 @@ test('upgrade laptop to macbook', () => {
         }
     }
 
-    const upUser = upgradeLaptop(user,'macbook');
+    const upUser = upgradeLaptop(user, 'macbook');
     expect(user).not.toBe(upUser);
     expect(user.address).toBe(upUser.address);
     expect(user.laptop).not.toBe(upUser.laptop);
@@ -82,7 +81,7 @@ test('house number', () => {
         },
         books: ['css', 'html', 'js', 'react']
     }
-   const userCopy = moveUserToOtherHouse(user,99);
+    const userCopy = moveUserToOtherHouse(user, 99);
 
 
     expect(user).not.toBe(userCopy);
@@ -104,13 +103,13 @@ test('add book', () => {
         },
         books: ['css', 'html', 'js', 'react']
     }
-    const userCopy = addBook(user,['ts','rest Api']);
+    const userCopy = addBook(user, ['ts', 'rest Api']);
 
     expect(user).not.toBe(userCopy);
     expect(user.books).not.toBe(userCopy.books);
     expect(user.laptop).toBe(userCopy.laptop);
     expect(user.address).toBe(userCopy.address);
-    expect(userCopy.books).toStrictEqual(['css', 'html', 'js', 'react','ts','rest Api'])
+    expect(userCopy.books).toStrictEqual(['css', 'html', 'js', 'react', 'ts', 'rest Api'])
 })
 
 test('update js to ts', () => {
@@ -125,7 +124,7 @@ test('update js to ts', () => {
         },
         books: ['css', 'html', 'js', 'react']
     }
-    const userCopy = updateBooks(user,'js','ts');
+    const userCopy = updateBooks(user, 'js', 'ts');
 
 
     expect(user).not.toBe(userCopy);
@@ -147,7 +146,7 @@ test('remove book', () => {
         },
         books: ['css', 'html', 'js', 'react']
     }
-    const userCopy = removeBook(user,'js');
+    const userCopy = removeBook(user, 'js');
 
     expect(user).not.toBe(userCopy);
     expect(user.books).not.toBe(userCopy.books);
@@ -167,15 +166,38 @@ test('update company Tytle', () => {
             title: 'ZenBook'
 
         },
-        companies: [{id:1,name:'Epam'}, {id:2,name:'IT-INCUBATOR'}]
+        companies: [{id: 1, name: 'Epam'}, {id: 2, name: 'IT-INCUBATOR'}]
     }
 
-    const userCopy = updateCompanyTitle(user,1,'Meta');
+    const userCopy = updateCompanyTitle(user, 1, 'Meta');
 
 
     expect(user).not.toBe(userCopy);
     expect(user.companies).not.toBe(userCopy.companies);
     expect(user.laptop).toBe(userCopy.laptop);
     expect(user.address).toBe(userCopy.address);
-    expect(userCopy.companies).toStrictEqual([{id:1,name:'Meta'}, {id:2,name:'IT-INCUBATOR'}])
+    expect(userCopy.companies).toStrictEqual([{id: 1, name: 'Meta'}, {id: 2, name: 'IT-INCUBATOR'}])
 })
+
+test('update company', () => {
+
+    let companies = {
+        'Dimych': [{id: 1, name: 'Epam'}, {id: 2, name: 'IT-INCUBATOR'}],
+        'Alex': [{id: 2, name: 'IT-INCUBATOR'}]
+    }
+    let companyCopy = {...companies}
+
+    const userCopy = updateCompanyTitle2(
+        companies,
+        "Dimych",
+        1,
+        'Meta');
+
+    expect(companies).not.toBe(companyCopy);
+    expect(companies.Dimych).toBe(companyCopy.Dimych);
+    expect(userCopy).toStrictEqual({Dimych: [{id: 1, name: 'Meta'}, {id: 2, name: 'IT-INCUBATOR'}], Alex: [{id: 2, name: 'IT-INCUBATOR'}]})
+    expect(userCopy['Dimych']).not.toBe(companies['Dimych']);
+    expect(userCopy['Alex']).toBe(companies['Alex']);
+    expect(userCopy['Dimych'][0].name).toBe('Meta')
+})
+

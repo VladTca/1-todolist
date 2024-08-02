@@ -17,8 +17,18 @@ export type UserWithLaptopType = UserType & {
 export type UserWithBooksType = UserType & {
     books: Array<string>
 }
+type CompanyType = { id: number, name: string };
 export type UserWithCompaniesType = {
- companies: Array<{id:number,name:string}>
+ companies: Array<CompanyType>
+}
+
+export function updateCompanyTitle2 (companies:{[key:string]:Array<CompanyType>},userName:string,companyId:number,NewTitle:string) {
+
+    return {
+        ...companies,
+        [userName]:companies[userName].map((c:any) => c.id === companyId ? {...c,name:NewTitle} : c)
+    }
+
 }
 
 export function updateCompanyTitle(u: UserWithLaptopType & UserWithCompaniesType, id: number, name: string) {
