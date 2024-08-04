@@ -10,6 +10,7 @@ type UserType = {
 function increaseAge(u: UserType) {
     u.age = u.age + 1;
 }
+
 //
 // test('big test', () => {
 //     var user: UserType = {
@@ -95,11 +96,24 @@ test('reference array type test', () => {
         address: addresses
     }
 
-    const users=[user,user2,{name:'Viktor',age:33,address:addresses}]
-    const admins=[user,user2];
-    admins[0].name='Dima'
+    const users = [user, user2, {name: 'Viktor', age: 33, address: addresses}]
+    const admins = [user, user2];
+    admins[0].name = 'Dima'
 
 
     expect(users[2].address?.title).toBe('Minsk');
     expect(admins[0].name).toBe('Dima');
+    expect(user.name).toBe('Dima')
 })
+
+test('sort array test', () => {
+    const letters = ['c', 'a', 'b', 'd', 'e', 'f'];
+    letters.sort();
+    expect(letters).toEqual(['a', 'b', 'c', 'd', 'e', 'f']);
+})
+
+function passportist(letter: any) {
+    const copy = [...letter] //copy letter
+    copy.sort()
+    return copy
+}
