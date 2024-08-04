@@ -261,3 +261,28 @@
 // console.log(numbers);
 
 ///////
+// const name_property = 'last';
+// const role_property = 'user';
+//
+// const employee = {
+//     firstName: 'Ivan',
+//     [name_property + 'Name']: 'Ivanov',
+//     ['middle' + 'Name']: 'Ivanovich',
+//     message: 'Hello world!',
+//     permission: {
+//         canEdit: true,
+//         canDelete: false,
+//         [role_property.toUpperCase()]: 'user',
+//     },
+// };
+//
+// console.log(employee);// ????
+//
+// let student = {
+//     name: 'John',
+//     age: 20,
+//     course: 'Math',
+// };
+// let propertyCount = Object.keys(student).length
+//
+// console.log(propertyCount);
