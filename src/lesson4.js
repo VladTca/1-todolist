@@ -286,3 +286,66 @@
 // let propertyCount = Object.keys(student).length
 //
 // console.log(propertyCount);
+
+let scores = {
+    math: 90,
+    english: 85,
+    science: 92,
+};
+
+
+// let totalScore=Object.values(scores).reduce(
+//     (acc,cur)=>{
+//         return acc+cur
+//     },0
+// )
+//
+// console.log(totalScore);
+
+
+let obj = { a: 1, b: 2, c: 3 };
+
+
+// function objectToArray(obj) {
+//     return Object.entries(obj)
+// }
+// console.log(objectToArray(obj)); // [['a', 1], ['b', 2], ['c', 3]]
+
+
+
+
+// let studentGrades = new Map();
+// studentGrades.set('Adam', 75);
+// studentGrades.set('Bob', 85);
+//
+//
+// console.log(studentGrades.get('Bob')); // 85
+
+//
+// let products = new Map([
+//     ['Milk', 1.2],
+//     ['Bread', 1.5],
+//     ['Cheese', 2.5],
+// ]);
+// if (products.has('Bread')) {
+//     products.delete('Bread');
+// }
+//
+// console.log(products.has('Bread')); // false
+// console.log(products);
+
+
+// let fruits = new Set(['apple', 'banana', 'mango']);
+// if (fruits.has('apple')) {
+//     fruits.delete('apple');
+// }
+// console.log(fruits);
+
+const numbers = [1, 1, 4, 6, 7, 8, 9, 0, 0, 10, 10, 11]
+
+let result = [...new Set(numbers)];
+
+console.log('result: ', result); //result:  [
+//   1, 4,  6,  7, 8,
+//   9, 0, 10, 11
+// ]
